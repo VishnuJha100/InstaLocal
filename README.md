@@ -54,4 +54,4 @@ npm run dev
 ```
 
 # License
-MIT © 2025 Your Name
+MIT © 2025 Vishnu Deb Jha
