@@ -1,15 +1,11 @@
 # InstaLocal
-# Local Stores Marketplace
+# Local Stores Marketplace (In progress)
 
-A full-stack e-commerce platform where local stores can register, manage their inventory, and sell products. Customers can browse nearby shops, place orders, and leave reviews.
+A FullStack e-commerce platform where local stores can register, manage their inventory, and sell products. Customers can browse nearby shops, place orders, and leave reviews.
 
 ---
 
 ## Tech Stack
-
-### **Frontend**
-- React.js
-- Tailwind CSS
 
 ### **Backend**
 - Node.js
