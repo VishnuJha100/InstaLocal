@@ -7,7 +7,7 @@ import User from '../models/UserModel.js'
 
 //@desc     Get all users (admin-only)
 //@route    GET /api/users
-exports.getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
     try {
         const users = await User.find().select('-password')
         res.json(users)
