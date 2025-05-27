@@ -4,7 +4,7 @@ import Product from '../models/ProductModel.js'
 //@desc     Create a review for a product
 //@route    POST /api/reviews
 //@access   Private (logged-in users)
-exports.createReview = async (req, res) => {
+export const createReview = async (req, res) => {
     const { productId, rating, comment } = req.body
     try {
         const product = await Product.findById(productId)
@@ -35,7 +35,7 @@ exports.createReview = async (req, res) => {
 //@desc     Get all reviews for a product
 //@route    GET /api/reviews/product/:productId
 //@access   Public
-exports.getReviewsByProduct = async (req, res) => {
+export const getReviewsByProduct = async (req, res) => {
     try {
         const reviews = await Review.find({ product: req.params.productId }).populate('user', 'name').sort({ createdAt: -1 })
         res.json(reviews)
@@ -47,7 +47,7 @@ exports.getReviewsByProduct = async (req, res) => {
 //@desc     Update a review
 //@route    PUT /api/reviews/:id
 //@access   Private (review owner or admin)
-exports.updateReview = async (req, res) => {
+export const updateReview = async (req, res) => {
     try {
         const review = await Review.findById(req.params.id)
         if(!review) {
@@ -68,7 +68,7 @@ exports.updateReview = async (req, res) => {
 //@desc     Delete a review
 //@route    DELETE /api/reviews/:id
 //access    Private (owner or admin)
-exports.deleteReview = async (req, res) => {
+export const deleteReview = async (req, res) => {
     try {
         const review = Review.findById(req.params.id)
         if(!review) {

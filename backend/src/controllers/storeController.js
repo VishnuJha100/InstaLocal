@@ -3,7 +3,7 @@ import Store from '../models/StoreModel.js'
 //@desc     Create a store
 //@route    POST /api/stores
 //@access   Private (store owner or admin)
-exports.createStore = async (req, res) => {
+export const createStore = async (req, res) => {
     const { name, description, image, location } = req.body
     try {
         const existing = await Store.findOne({ owner: req.user.id })
@@ -27,7 +27,7 @@ exports.createStore = async (req, res) => {
 //@desc     Get all stores
 //@route    GET /api/stores
 //@access   Public
-exports.getAllStores = async (req, res) => {
+export const getAllStores = async (req, res) => {
     try {
         const stores = await Store.find().populate('owner', 'name', 'email')
         res.json(stores)
@@ -39,7 +39,7 @@ exports.getAllStores = async (req, res) => {
 //@desc     Get single store by Id
 //@route    GET /api/stores
 //access    Public
-exports.getStoreById = async (req, res) => {
+export const getStoreById = async (req, res) => {
     try {
         const store = await Store.findById(req.params.id).populate('owner', 'name email')
         if(!store) {
@@ -54,7 +54,7 @@ exports.getStoreById = async (req, res) => {
 //@desc     Update store
 //@route    PUT /api/stores/:id
 //@access   Private (owner or admin)
-exports.updateStore = async (req, res) => {
+export const updateStore = async (req, res) => {
     try {
         const store = await Store.findById(req.params.id)
         if(!store) {
@@ -76,7 +76,7 @@ exports.updateStore = async (req, res) => {
 //@desc     Delete store
 //@route    DELETE /api/stores/:id
 //@access   Private (owner or admin)
-exports.deleteStore = async (req, res) => {
+export const deleteStore = async (req, res) => {
     try {
         const store = await Store.findById(req.params.id)
         if(!store) {
@@ -96,7 +96,7 @@ exports.deleteStore = async (req, res) => {
 //@desc     Approve a store (admin only)
 //@route    PATCH /api/stores/:id/verify
 //@access   Private (admin)
-exports.approveStore = async (req, res) => {
+export const approveStore = async (req, res) => {
     try {
         const store = await Store.findById(req.params.id)
         if(!store) {

@@ -18,7 +18,7 @@ exports.getAllUsers = async (req, res) => {
 
 //@desc     Get user by ID
 //@route    GET /api/users/:id
-exports.getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id).select('-password')
         if(!user) {
@@ -32,7 +32,7 @@ exports.getUserById = async (req, res) => {
 
 //@ desc    update profile (self/admin)
 //@route    PUT /api/users/:id
-exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
     try {
         const updates = {
             name: req.body.name,
@@ -57,7 +57,7 @@ exports.updateUser = async (req, res) => {
 
 //@desc     Delete a user (admin/self)
 //@route    DELETE /api/users/:id
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
         if(!user) {

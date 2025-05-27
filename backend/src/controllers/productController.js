@@ -4,7 +4,7 @@ import Store from '../models/StoreModel.js'
 //@desc     Create a product
 //@route    POST /api/products
 //@access   Private(store owner or admin)
-exports.createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
     const { name, description, price, image, stock, storeId, category, tags } = req.body
     try {
         const store = await Store.findById(storeId)
@@ -34,7 +34,7 @@ exports.createProduct = async (req, res) => {
 //@desc     Get all products or filter by store or category
 //@route    GET api/products?storeId=&category=
 //access    Public
-exports.getAllProducts = async (req, res) => {
+export const getAllProducts = async (req, res) => {
     try {
         const filter = {}
         if(req.query.storyId) {
@@ -53,7 +53,7 @@ exports.getAllProducts = async (req, res) => {
 //@desc     Get single product by Id
 //@route    GET /api/products/:id
 //@access   Public
-exports.getProductById = async (req, res) => {
+export const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).populate('store', 'name').populate('category', 'name')
         if(!product) {
@@ -68,7 +68,7 @@ exports.getProductById = async (req, res) => {
 //@desc     Update a product
 //@route    PUT /api/products/:id
 //@access   Private (store owner or admin)
-exports.updateProduct = async (req, res) => {
+export const updateProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).populate('store')
         if(!product) {
@@ -88,7 +88,7 @@ exports.updateProduct = async (req, res) => {
 //@desc     Delete a product
 //@route    DELETE /api/products/:id
 //@access   Private (store owner or admin)
-exports.deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).populate('store')
         if(!product) {

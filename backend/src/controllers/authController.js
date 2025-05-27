@@ -13,7 +13,7 @@ const generateToken = (user) => {
 
 //@desc     Register new user
 //@route    POST /api/auth/register
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
     const { name, email, password, role } = req.body
     try {
         const existingUser = await User.findOne({email});
@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
 
 //@desc     Login user
 //@route    POST /api/auth/login
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     const { email, password } = req.body
     try {
         const user = await User.findOne({ email })
@@ -64,7 +64,7 @@ exports.login = async (req, res) => {
 //@route    GET /api/auth/me
 //@access   Private
 
-exports.getMe = async (req, res) => {
+export const getMe = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password')
         res.json(user)
