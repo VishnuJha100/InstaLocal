@@ -59,13 +59,13 @@ exports.updateUser = async (req, res) => {
 //@route    DELETE /api/users/:id
 exports.deleteUser = async (req, res) => {
     try {
-        //Only admin or user themself can delete
-        if(req.user.role !== 'admin' && req.user.id !== req.params.id) {
-            return res.status(403).json({ error: 'Not authorized' })
-        }
         const user = await User.findById(req.params.id)
         if(!user) {
             return res.status(404).json({ error: 'No user found' })
+        }
+        //Only admin or user themself can delete
+        if(req.user.role !== 'admin' && req.user.id !== req.params.id) {
+            return res.status(403).json({ error: 'Not authorized' })
         }
         await user.remove()
         res.json({ message: 'User deleted' })
