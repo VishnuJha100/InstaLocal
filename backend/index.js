@@ -7,7 +7,7 @@ import userRoutes from './src/routes/userRoute.js'
 import storeRoutes from './src/routes/storeRoute.js'
 import productRoutes from './src/routes/productRoute.js'
 import reviewRoutes from './src/routes/reviewRoute.js'
-//import orderRoutes from './src/routes/orderRoutes.js'
+import orderRoutes from './src/routes/orderRoutes.js'
 
 dotenv.config()
 connectDB() // connecting to MongoDB database
@@ -24,7 +24,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/stores', storeRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/reviews', reviewRoutes)
-//app.use('/api/orders', orderRoutes)
+app.use('/api/orders', orderRoutes)
 
 app.get('/', (req, res) => {
     res.send('API is running...')
