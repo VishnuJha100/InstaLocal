@@ -1,5 +1,6 @@
 import Review from '../models/ReviewModel.js'
 import Product from '../models/ProductModel.js'
+import verifyPurchase from '../utils/verifyPurchase.js'
 
 //@desc     Create a review for a product
 //@route    POST /api/reviews
@@ -10,6 +11,11 @@ export const createReview = async (req, res) => {
         const product = await Product.findById(productId)
         if(!product) {
             return res.status(404).json({ error: 'Product not found' })
+        }
+        //Checking if user has pruchased this product
+        const purchased = await verifyPurchase(req.user.id, productId);
+        if (!purchased) {
+            return res.status(403).json({ error: 'Only buyers can review the product' });
         }
         // Checking if user had alreayd reviewed the product
         const reviewed = await Review.findOne({
@@ -70,7 +76,7 @@ export const updateReview = async (req, res) => {
 //access    Private (owner or admin)
 export const deleteReview = async (req, res) => {
     try {
-        const review = Review.findById(req.params.id)
+        const review = await Review.findById(req.params.id)
         if(!review) {
             return res.status(404).json({ error: 'Review not found' })
         }
