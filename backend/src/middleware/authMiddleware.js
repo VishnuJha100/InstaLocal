@@ -2,11 +2,7 @@ import jwt from 'jsonwebtoken'
 import User from '../models/UserModel.js'
 
 export const protect = async (req, res, next) => {
-    let token
-    //checking for token in header
-    if(req.headers.authorization && req.headers.authorization.startswith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1]
-    }
+    const token = req.cookies.jwt
     if(!token) {
         return res.status(401).json({ error: 'Not authorized, token missing' })
     }

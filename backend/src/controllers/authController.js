@@ -10,7 +10,7 @@ const generateToken = (user) => {
         { expiresIn: '7d' }
     )
 }
-
+ 
 //@desc     Register new user
 //@route    POST /api/auth/register
 export const register = async (req, res) => {
@@ -51,24 +51,35 @@ export const login = async (req, res) => {
             return res.status(400).json({ error: "Invalid credentials" })
         }
         const token = generateToken(user)
+        res.cookie(token)
         res.json({
-            user: { id: user._id, email: user.email, role: user.role, password: user.password },
-            token
+            user: { id: user._id, email: user.email, role: user.role, password: user.password }
         })
     } catch (error) {
-        res.status(500).json({ error: "Error in login controller" })
+        res.status(500).json({ error: "Error in login controller" + error.message })
     }
 }
 
 //@desc     Get current user
 //@route    GET /api/auth/me
 //@access   Private
-
 export const getMe = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password')
         res.json(user)
     } catch (error) {
         res.status(500).json({ error: 'Unable to fetch user'})
+    }
+}
+
+//@desc     Logout current user
+//@route
+//@access   Private
+export const logout = async (req, res) => {
+    try {
+        res.cookie("jwt", "", {maxAge:0})
+        res.status(200).json({ message: "Logged out successfully"})
+    } catch (error) {
+        res.status(500).json({ error: "Failed to logout" })
     }
 }
